@@ -5,6 +5,7 @@
 ## 4. Appropriately labels the data set with descriptive activity names.
 ## 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
+setwd("C:/Users/Dane/Documents/GitHub/datasciencecoursera/Coursera-Getting-and-Cleaning-Data-Course-Project")
 if (!require("data.table")) {
   install.packages("data.table")
 }
@@ -17,18 +18,18 @@ require("data.table")
 require("reshape2")
 
 # Load: activity labels
-activity_labels <- read.table("./UCI HAR Dataset/activity_labels.txt")[,2]
+activity_labels <- read.table("UCI HAR Dataset/activity_labels.txt")[,2]
 
 # Load: data column names
-features <- read.table("./UCI HAR Dataset/features.txt")[,2]
+features <- read.table("UCI HAR Dataset/features.txt")[,2]
 
 # Extract only the measurements on the mean and standard deviation for each measurement.
 extract_features <- grepl("mean|std", features)
 
 # Load and process X_test & y_test data.
-X_test <- read.table("./UCI HAR Dataset/test/X_test.txt")
-y_test <- read.table("./UCI HAR Dataset/test/y_test.txt")
-subject_test <- read.table("./UCI HAR Dataset/test/subject_test.txt")
+X_test <- read.table("UCI HAR Dataset/test/X_test.txt")
+y_test <- read.table("UCI HAR Dataset/test/y_test.txt")
+subject_test <- read.table("UCI HAR Dataset/test/subject_test.txt")
 
 names(X_test) = features
 
@@ -44,10 +45,10 @@ names(subject_test) = "subject"
 test_data <- cbind(as.data.table(subject_test), y_test, X_test)
 
 # Load and process X_train & y_train data.
-X_train <- read.table("./UCI HAR Dataset/train/X_train.txt")
-y_train <- read.table("./UCI HAR Dataset/train/y_train.txt")
+X_train <- read.table("UCI HAR Dataset/train/X_train.txt")
+y_train <- read.table("UCI HAR Dataset/train/y_train.txt")
 
-subject_train <- read.table("./UCI HAR Dataset/train/subject_train.txt")
+subject_train <- read.table("UCI HAR Dataset/train/subject_train.txt")
 
 names(X_train) = features
 
@@ -67,11 +68,14 @@ data = rbind(test_data, train_data)
 
 id_labels   = c("subject", "Activity_ID", "Activity_Label")
 data_labels = setdiff(colnames(data), id_labels)
-melt_data      = melt(data, id = id_labels, measure.vars = data_labels)
+melt_data  = melt(data, id = id_labels, measure.vars = data_labels)
 
 # Apply mean function to dataset using dcast function
 tidy_data   = dcast(melt_data, subject + Activity_Label ~ variable, mean)
 
+<<<<<<< HEAD
+write.table(tidy_data, file = "tidy_data.txt")
+=======
 write.table(tidy_data, file = "./tidy_data.txt")
 
 
@@ -124,3 +128,4 @@ aggr.data <- aggregate(data.mean.std[, 3:ncol(data.mean.std)],
 # write the data for course upload
 write.table(format(aggr.data, scientific=T), "tidy2.txt",
             row.names=F, col.names=F, quote=2)
+>>>>>>> c7e97c666d8fb4ec85e735560c8e87d952ab84ec
