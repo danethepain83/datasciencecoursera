@@ -73,11 +73,7 @@ melt_data  = melt(data, id = id_labels, measure.vars = data_labels)
 # Apply mean function to dataset using dcast function
 tidy_data   = dcast(melt_data, subject + Activity_Label ~ variable, mean)
 
-<<<<<<< HEAD
 write.table(tidy_data, file = "tidy_data.txt")
-=======
-write.table(tidy_data, file = "./tidy_data.txt")
-
 
 ## step 1
 # read all the data
@@ -124,8 +120,5 @@ aggr.data <- aggregate(data.mean.std[, 3:ncol(data.mean.std)],
                                label = data.mean.std$label),
                        mean)
 
-## step nothing
 # write the data for course upload
-write.table(format(aggr.data, scientific=T), "tidy2.txt",
-            row.names=F, col.names=F, quote=2)
->>>>>>> c7e97c666d8fb4ec85e735560c8e87d952ab84ec
+write.table(format(aggr.data, scientific=T), "tidy2.txt", row.names=F, col.names=F, quote=2)
