@@ -1,6 +1,18 @@
+## ----setwd---------------------------------------------------------------
+setwd("C:/Users/i53194/Documents/GitHub/datasciencecoursera/Reproducable Research")
+
 ## ----loaddata------------------------------------------------------------
-unzip(zipfile="activity.zip")
 data <- read.csv("activity.csv")
+
+## ----load plots----------------------------------------------------------
+usePackage <- function(p) 
+{
+  if (!is.element(p, installed.packages()[,1]))
+    install.packages(p, dep = TRUE)
+  require(p, character.only = TRUE)
+}
+
+usePackage("ggplot2")
 
 
 ## ------------------------------------------------------------------------
