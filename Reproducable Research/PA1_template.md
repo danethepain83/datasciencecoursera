@@ -14,9 +14,11 @@ data <- read.csv("activity.csv")
 library(ggplot2)
 total.steps <- tapply(data$steps, data$date, FUN = sum, na.rm = TRUE)
 qplot(total.steps, binwidth = 1000, xlab = "total number of steps taken each day")
+dev.copy(png, filename = "Plot1.png", width=480, height=480)
+dev.off()
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1.png) 
+![plot of chunk unnamed-chunk-1](Plot1.png) 
 
 ```r
 mean(total.steps, na.rm = TRUE)
